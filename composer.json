@@ -17,5 +17,13 @@
         "psr-4" : {
             "LaravelLegends\\InteractiveModel\\" : "src/"
         }
+    },
+
+    "extra" : {
+        "laravel" : {
+            "providers": [
+                "LaravelLegends\\InteractiveMode\\InteractiveModelCommand"
+            ]
+        }
     }
 }

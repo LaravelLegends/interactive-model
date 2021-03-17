@@ -1,0 +1,13 @@
+{
+    "name": "wallacemaxters/interactive-model",
+    "description": "Insert data in model interactively with artisan",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Wallace Maxters",
+            "email": "wallacemaxters@gmail.com"
+        }
+    ],
+    "require": {}
+}

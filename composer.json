@@ -15,7 +15,7 @@
     },
     "autoload" : {
         "psr-4" : {
-            "LaravelLegends\\InteractiveModel\\" : "src/"
+            "LaravelLegends\\InteractiveModel\\" : "src/interactive-model/"
         }
     },
 
@@ -25,5 +25,11 @@
                 "LaravelLegends\\InteractiveModel\\InteractiveModelServiceProvider"
             ]
         }
+    },
+    "require-dev": {
+        "orchestra/testbench": "^3.4"
+    },
+    "scripts": {
+        "test" : "./vendor/bin/phpunit"
     }
 }

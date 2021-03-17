@@ -3,6 +3,7 @@
     "description": "This library is helpful to record data in the Eloquent models interactively via the command line.",
     "type": "library",
     "license": "MIT",
+    "minimum-stability": "stable",
     "authors": [
         {
             "name": "Wallace Maxters",

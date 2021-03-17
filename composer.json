@@ -22,7 +22,7 @@
     "extra" : {
         "laravel" : {
             "providers": [
-                "LaravelLegends\\InteractiveMode\\InteractiveModelCommand"
+                "LaravelLegends\\InteractiveModel\\InteractiveModelServiceProvider"
             ]
         }
     }

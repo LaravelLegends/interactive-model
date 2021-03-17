@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class InteractiveModelCommand extends Command
 {
-    protected $signature = 'll:interative-model {model}';
+    protected $signature = 'll:interactive-model {model}';
 
     protected $description = 'Insert data in your model interactively';
 

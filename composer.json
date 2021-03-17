@@ -1,6 +1,6 @@
 {
-    "name": "wallacemaxters/interactive-model",
-    "description": "Insert data in model interactively with artisan",
+    "name": "laravellegends/interactive-model",
+    "description": "This library is helpful to record data in the Eloquent models interactively via the command line.",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -9,5 +9,12 @@
             "email": "wallacemaxters@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "illuminate/console" : "*"
+    },
+    "autoload" : {
+        "psr-4" : {
+            "LaravelLegends\\InteractiveModel\\" : "src/"
+        }
+    }
 }

@@ -1,5 +1,11 @@
 {
     "name": "laravellegends/interactive-model",
+    "keywords": [
+        "eloquent",
+        "artisan",
+        "interactive",
+        "model"
+    ],
     "description": "This library is helpful to record data in the Eloquent models interactively via the command line.",
     "type": "library",
     "license": "MIT",

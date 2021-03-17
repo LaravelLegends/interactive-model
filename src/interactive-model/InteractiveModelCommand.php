@@ -80,11 +80,13 @@ class InteractiveModelCommand extends Command
      * @param string $field
      * @return string
      */
-    protected function getFieldValue(Model $model, string $field): string
+    protected function getFieldValue(Model $model, string $field): ?string
     {
         $method = in_array($field, $model->getHidden()) ? 'secret' : 'ask';
 
-        return $this->$method("Type the \"$field\" value");
+        $value = $this->$method("Type the \"$field\" value", false);
+
+        return $value === false ? null : $value;
     }
 
     /**

@@ -2,6 +2,27 @@
 
 This is a Laravel package to help you to record data in the Eloquent models interactively via the command line.
 
+## Instalation (beta)
+
+Add in your `composer.json` the follow lines:
+
+```json
+"repositories" : [
+    {
+        "type": "vcs",
+        "url" : "https://github.com/LaravelLegends/interactive-model.git"
+    }
+]
+```
+
+Now, run in terminal:
+
+```bash
+composer require laravellegends/interactive-model dev-master
+```
+
+## Usage examples
+
 Example:
 
 ```bash

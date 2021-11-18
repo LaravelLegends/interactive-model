@@ -2,6 +2,8 @@
 
 namespace LaravelLegends\InteractiveModel;
 
+use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class InteractiveModelCommand extends Command
 {
-    protected $signature = 'll:interactive-model {model}';
+    protected $signature = 'model:interactive {model}';
 
     protected $description = 'Insert data in your model interactively';
 
@@ -23,11 +25,9 @@ class InteractiveModelCommand extends Command
      */
     public function handle()
     {
-
         $instance = $this->getModelInstance();
 
         foreach ($instance->getFillable() as $field) {
-
             $value = $this->getFieldValue($instance, $field);
 
             $instance->setAttribute($field, $value);
@@ -78,15 +78,15 @@ class InteractiveModelCommand extends Command
      *
      * @param Model $model
      * @param string $field
-     * @return string
+     * @return mixed
      */
-    protected function getFieldValue(Model $model, string $field): ?string
+    protected function getFieldValue(Model $model, string $field)
     {
-        $method = in_array($field, $model->getHidden()) ? 'secret' : 'ask';
+        $castType = $model->getCasts()[$field] ?? 'string';
 
-        $value = $this->$method("Type the \"$field\" value", false);
+        $value = $this->getByCastType($model, $castType, $field);
 
-        return $value === false ? null : $value;
+        return $value;
     }
 
     /**
@@ -104,5 +104,60 @@ class InteractiveModelCommand extends Command
         ksort($attributes);
 
         $this->table(array_keys($attributes), [$attributes]);
+    }
+
+
+    protected function getByCastType(Model $model, string $castType, string $field)
+    {
+        if (in_array($castType, ['datetime', 'date', 'custom_datetime'])) {
+
+            $value = $this->ask($this->getAskForField($field));
+
+            try {
+                $value = Carbon::parse($value);
+            } catch (InvalidFormatException $e) {
+                $value = $this->getByCastType($model, $castType, $field);
+            }
+
+            return $value;
+
+        } elseif (in_array($castType, ['json', 'array'])) {
+            $value = $this->ask($this->getAskForField($field));
+
+            $value = json_decode($value, true);
+
+            if (json_last_error() > 0) {
+                $value = $this->getByCastType($model, $castType, $field);
+            }
+
+            return $value;
+
+        } elseif (in_array($castType, ['bool', 'boolean'])) {
+
+            $value = strtolower(
+                $this->ask($this->getAskForField($field))
+            );
+
+            if (! in_array($value, ['true', 'false'])) {
+                $value = strtolower(
+                    $this->ask($this->getAskForField($field))
+                );
+            }
+
+            return $value === 'true';
+
+        }
+
+        $method = in_array($field, $model->getHidden()) ? 'secret' : 'ask';
+
+        $value = $this->$method($this->getAskForField($field));
+
+        return $value === 'NULL' ? null : $value;
+        
+    }
+
+    protected function getAskForField(string $field)
+    {
+        return "Type the \"$field\" value";
     }
 }

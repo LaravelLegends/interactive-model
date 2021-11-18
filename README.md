@@ -15,12 +15,12 @@ composer require laravellegends/interactive-model
 Example:
 
 ```bash
-php artisan ll:interactive-model User
+php artisan model:interactive User
 ```
 or
 
 ```bash
-php artisan ll:interactive-model App\\Models\\User
+php artisan model:interactive App\\Models\\User
 ```
 
 ```text
